@@ -21,12 +21,12 @@ const App = () => {
           x.name.toLowerCase().includes(searchWord.toLowerCase())
         );
 
-  const handleOnChange = (event) => {
-   setSearch(event)
+  const handleOnChange = (word) => {
+   setSearch(word)
   };
 
-  const handleOnSubmit = (event) => {
-      setPersons(persons.concat(event));
+  const handleOnSubmit = (person) => {
+      setPersons(persons.concat(person));
   };
 
   return (
