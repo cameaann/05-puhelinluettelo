@@ -31,7 +31,12 @@ const App = () => {
   };
 
   const handleOnSubmit = (person) => {
-      setPersons(persons.concat(person));
+    axios.post("http://localhost:3001/persons", person)
+    .then((response)=>{
+      console.log(response.data)
+      setPersons(persons.concat(response.data));
+    })
+      
   };
 
   return (
