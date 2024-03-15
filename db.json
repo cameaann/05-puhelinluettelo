@@ -24,6 +24,11 @@
       "id": 5,
       "name": "Alice Wonder",
       "number": "24-22-999021"
+    },
+    {
+      "id": 6,
+      "name": "Mary Curie",
+      "number": "444-888899"
     }
   ]
 }
