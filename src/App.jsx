@@ -32,12 +32,21 @@ const App = () => {
    setSearch(word)
   };
 
-  const handleOnSubmit = (person) => {
-    personService
-    .create(person)
-    .then(person => {
-      setPersons(persons.concat(person))
-    })
+  const handleOnSubmit = (person, action) => {
+    if(action === "create"){
+      personService
+      .create(person)
+      .then(person => {
+        setPersons(persons.concat(person))
+      })
+    }else if(action === "change"){
+      personService
+      .change(person)
+      .then(person => {
+        setPersons(persons.map(x => x.id !== person.id ? x : person))
+      } )
+    }
+  
   };
 
   const handleDelete = (person) => {

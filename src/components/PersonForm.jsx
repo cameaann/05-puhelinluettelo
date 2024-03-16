@@ -6,7 +6,7 @@ const PersonForm = ({ handleOnSubmit, persons }) => {
 
   const handleOnChange = (event) => {
     const { name, value } = event.target;
-   
+
     if (name === "name") {
       setNewName(value);
     }
@@ -14,21 +14,33 @@ const PersonForm = ({ handleOnSubmit, persons }) => {
       setNewNumber(value);
     }
   };
-  
+
   const handleSubmit = (event) => {
     event.preventDefault();
-    const check = persons.find((x) => x.name === newName);
+    const person = persons.find((x) => x.name === newName);
+    let action = "";
 
-    if (check) {
-      alert(newName + " is already added to phonebook");
+    if (person) {
+      let result = confirm(newName + " is already added to phonebook, replace the old number with a new one");
+
+      if (result) {
+        console.log(person);
+        action = "change";
+        const changedPerson = {... person,
+         number: newNumber}
+         setNewName("");
+         setNewNumber("");
+         handleOnSubmit(changedPerson, action);
+      }
     } else {
+      action = "create"
       const newPerson = {
         name: newName,
         number: newNumber,
       };
       setNewName("");
       setNewNumber("");
-      handleOnSubmit(newPerson);
+      handleOnSubmit(newPerson, action);
     }
   };
 

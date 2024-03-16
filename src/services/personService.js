@@ -17,4 +17,9 @@ const delPerson = (person) => {
   return promise.then((response) => response.data);
 };
 
-export default { getAll, create, delPerson };
+const change = (person) => {
+  const promise = axios.put(`${url}/${person.id}`, person);
+  return promise.then(response => response.data);
+}
+
+export default { getAll, create, change, delPerson };
