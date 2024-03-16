@@ -1,7 +1,13 @@
-const Person = ({person}) =>{
-return(
-    <div>{person.name} {person.number}</div>
-)
-}
+const Person = ({ person, handleDelete }) => {
+  return (
+    <>
+      <div>
+        <span>{person.name} {person.number}</span>  
+        <button type="submit" onClick={handleDelete}>delete</button>
+      </div>
+     
+    </>
+  );
+};
 
 export default Person;

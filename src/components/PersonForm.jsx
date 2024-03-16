@@ -24,7 +24,6 @@ const PersonForm = ({ handleOnSubmit, persons }) => {
     } else {
       const newPerson = {
         name: newName,
-        id: persons.length + 1,
         number: newNumber,
       };
       setNewName("");
