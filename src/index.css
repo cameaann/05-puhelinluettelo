@@ -2,3 +2,26 @@ input{
   margin-block-end: 1rem;
   margin-inline-start: 1rem;
 }
+.btn{
+  display:block;
+  width: fit-content;
+  border-radius: .5rem;
+  border:none;
+  padding: .5rem;
+}
+
+.btn:hover, .btn:active{
+  background: linear-gradient(#64b2e6, #474e95);
+  color:#ffffff;
+}
+.person{
+  width:20rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-block-end: 1rem;
+
+}
+.person span:first-of-type{
+  flex-basis: 40%;
+}

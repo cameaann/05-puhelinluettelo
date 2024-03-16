@@ -21,28 +21,37 @@ const PersonForm = ({ handleOnSubmit, persons }) => {
     let action = "";
 
     if (person) {
-      let result = confirm(newName + " is already added to phonebook, replace the old number with a new one");
+      let result = confirm(
+        newName +
+          " is already added to phonebook, replace the old number with a new one"
+      );
 
       if (result) {
         console.log(person);
         action = "change";
-        const changedPerson = {... person,
-         number: newNumber}
-         setNewName("");
-         setNewNumber("");
-         handleOnSubmit(changedPerson, action);
+        const changedPerson = { ...person, number: newNumber };
+        resetFields();
+        handleOnSubmit(changedPerson, action);
       }
     } else {
-      action = "create"
-      const newPerson = {
-        name: newName,
-        number: newNumber,
-      };
-      setNewName("");
-      setNewNumber("");
-      handleOnSubmit(newPerson, action);
+      action = "create";
+      if (newName.length < 1 || newNumber < 1) {
+        alert("You need to enter the name and number");
+      } else {
+        const newPerson = {
+          name: newName,
+          number: newNumber,
+        };
+        resetFields();
+        handleOnSubmit(newPerson, action);
+      }
     }
   };
+
+  function resetFields(){
+    setNewName("");
+    setNewNumber("");
+  }
 
   return (
     <form onSubmit={handleSubmit}>
@@ -54,7 +63,9 @@ const PersonForm = ({ handleOnSubmit, persons }) => {
         </div>
       </div>
       <div>
-        <button type="submit">add</button>
+        <button className="btn" type="submit">
+          add
+        </button>
       </div>
     </form>
   );
