@@ -5,22 +5,21 @@ import Filter from "./components/Filter";
 import personService from "./services/personService";
 import Notification from "./components/Notification";
 
-
 const App = () => {
   const [persons, setPersons] = useState([]);
   const [searchWord, setSearch] = useState("");
-  const [notifyMesssage, setNotifyMessage] = useState("");
+  const [notifyMesssage, setNotifyMessage] = useState(null);
+  const [isError, setIsError] = useState(false);
+
+  const notifyClass = isError ? "error" : "notification";
 
   useEffect(() => {
     console.log("effect");
 
-    personService
-    .getAll()
-    .then((initialPersons) =>{
-      console.log(initialPersons)
-      setPersons(initialPersons)
-    })
-    
+    personService.getAll().then((initialPersons) => {
+      console.log(initialPersons);
+      setPersons(initialPersons);
+    });
   }, []);
 
   const filteredPersons =
@@ -31,58 +30,56 @@ const App = () => {
         );
 
   const handleOnChange = (word) => {
-   setSearch(word)
+    setSearch(word);
   };
 
   const handleOnSubmit = (person, action) => {
-    if(action === "create"){
-      personService
-      .create(person)
-      .then(person => {
-        setPersons(persons.concat(person))
-        setNotifyMessage(
-          `Added ${person.name}`
-        );
+    if (action === "create") {
+      personService.create(person).then((person) => {
+        setPersons(persons.concat(person));
+        setNotifyMessage(`Added ${person.name}`);
         setTimeout(() => {
           setNotifyMessage(null);
         }, 5000);
-      })
-    }else if(action === "change"){
+      });
+    } else if (action === "change") {
       personService
-      .change(person)
-      .then(person => {
-        setPersons(persons.map(x => x.id !== person.id ? x : person))
-      } )
-      setNotifyMessage(
-        `Changed number of ${person.name}`
-      );
-      setTimeout(() => {
-        setNotifyMessage(null);
-      }, 5000);
+        .change(person)
+        .then((person) => {
+          setPersons(persons.map((x) => (x.id !== person.id ? x : person)));
+          setNotifyMessage(`Changed number of ${person.name}`);
+          setTimeout(() => {
+            setNotifyMessage(null);
+          }, 5000);
+        })
+        .catch((error) => {
+          setIsError(true)
+          setNotifyMessage(
+            `Information of ${person.name} has already been removed from server`
+          );
+          setTimeout(() => {
+            setNotifyMessage(null);
+            setIsError(false)
+          }, 5000);
+        });
     }
-  
   };
 
-  
-
   const handleDelete = (person) => {
-    personService
-    .delPerson(person)
-    .then(person => {
-       setPersons(persons.filter(p => p.id !== person.id))
-    })
-  }
-
+    personService.delPerson(person).then((person) => {
+      setPersons(persons.filter((p) => p.id !== person.id));
+    });
+  };
 
   return (
     <div>
       <h2>Phonebook</h2>
-      <Notification message={notifyMesssage}/>
-      <Filter handleChange = {handleOnChange}/>
+      <Notification message={notifyMesssage} className={notifyClass}/>
+      <Filter handleChange={handleOnChange} />
 
       <h3>Add a new</h3>
       <PersonForm handleOnSubmit={handleOnSubmit} persons={persons} />
-      
+
       <h3>Numbers</h3>
       <Persons persons={filteredPersons} handleDelete={handleDelete} />
     </div>
