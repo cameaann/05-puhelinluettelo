@@ -55,12 +55,13 @@ const PersonForm = ({ handleOnSubmit, persons }) => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <div>
-        name: <input value={newName} onChange={handleOnChange} name="name" />
-        <div>
-          number:{" "}
-          <input value={newNumber} onChange={handleOnChange} name="number" />
-        </div>
+      <div className="form-field">
+         <label htmlFor="name">name:</label> 
+         <input value={newName} onChange={handleOnChange} name="name" id="name" />
+      </div>
+      <div className="form-field">
+          <label htmlFor="phone">number:</label>
+          <input value={newNumber} onChange={handleOnChange} name="number" id="phone"/>
       </div>
       <div>
         <button className="btn" type="submit">

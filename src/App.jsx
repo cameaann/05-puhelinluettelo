@@ -53,13 +53,13 @@ const App = () => {
           }, 5000);
         })
         .catch((error) => {
-          setIsError(true)
+          setIsError(true);
           setNotifyMessage(
             `Information of ${person.name} has already been removed from server`
           );
           setTimeout(() => {
             setNotifyMessage(null);
-            setIsError(false)
+            setIsError(false);
           }, 5000);
         });
     }
@@ -72,16 +72,18 @@ const App = () => {
   };
 
   return (
-    <div>
-      <h2>Phonebook</h2>
-      <Notification message={notifyMesssage} className={notifyClass}/>
-      <Filter handleChange={handleOnChange} />
+    <div className="wrap-container">
+      <div className="phonebook-container">
+        <h2>Phonebook</h2>
+        <Notification message={notifyMesssage} className={notifyClass} />
+        <Filter handleChange={handleOnChange} />
 
-      <h3>Add a new</h3>
-      <PersonForm handleOnSubmit={handleOnSubmit} persons={persons} />
+        <h3>Add a new</h3>
+        <PersonForm handleOnSubmit={handleOnSubmit} persons={persons} />
 
-      <h3>Numbers</h3>
-      <Persons persons={filteredPersons} handleDelete={handleDelete} />
+        <h3>Numbers</h3>
+        <Persons persons={filteredPersons} handleDelete={handleDelete} />
+      </div>
     </div>
   );
 };

@@ -5,7 +5,7 @@ const Filter = ({handleChange}) => {
   }
 
   return (
-    <div>
+    <div className="filter">
       filter shown with 
       <input onChange={handleOnChange} name="search" />
     </div>
