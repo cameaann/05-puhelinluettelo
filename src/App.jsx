@@ -14,11 +14,9 @@ const App = () => {
   const notifyClass = isError ? "error" : "notification";
 
   useEffect(() => {
-    console.log("effect");
-
     personService.getAll().then((initialPersons) => {
-      console.log(initialPersons);
       setPersons(initialPersons);
+      console.log(persons);
     });
   }, []);
 
@@ -66,8 +64,10 @@ const App = () => {
   };
 
   const handleDelete = (person) => {
-    personService.delPerson(person).then((person) => {
-      setPersons(persons.filter((p) => p.id !== person.id));
+    personService.delPerson(person).then(() => {
+      const p = persons.filter((p) => p.id !== person.id);
+      console.log(p);
+      setPersons(p);
     });
   };
 
