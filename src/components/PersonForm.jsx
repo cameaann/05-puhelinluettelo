@@ -27,7 +27,6 @@ const PersonForm = ({ handleOnSubmit, persons }) => {
       );
 
       if (result) {
-        console.log(person);
         action = "change";
         const changedPerson = { ...person, number: newNumber };
         resetFields();

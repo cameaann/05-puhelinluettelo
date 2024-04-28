@@ -16,7 +16,6 @@ const App = () => {
   useEffect(() => {
     personService.getAll().then((initialPersons) => {
       setPersons(initialPersons);
-      console.log(persons);
     });
   }, []);
 
@@ -66,7 +65,6 @@ const App = () => {
   const handleDelete = (person) => {
     personService.delPerson(person).then(() => {
       const p = persons.filter((p) => p.id !== person.id);
-      console.log(p);
       setPersons(p);
     });
   };
