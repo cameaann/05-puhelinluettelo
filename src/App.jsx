@@ -10,13 +10,19 @@ const App = () => {
   const [searchWord, setSearch] = useState("");
   const [notifyMesssage, setNotifyMessage] = useState(null);
   const [isError, setIsError] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   const notifyClass = isError ? "error" : "notification";
 
   useEffect(() => {
-    personService.getAll().then((initialPersons) => {
-      setPersons(initialPersons);
-    });
+    try {
+      personService.getAll().then((initialPersons) => {
+        setPersons(initialPersons);
+        setLoading(false);
+      });
+    } catch (error) {
+      console.error();
+    }
   }, []);
 
   const filteredPersons =
@@ -80,6 +86,12 @@ const App = () => {
         <PersonForm handleOnSubmit={handleOnSubmit} persons={persons} />
 
         <h3>Numbers</h3>
+        {loading && (
+          <div className="loading-box">
+            <span className="loader"></span>
+            <div>Connecting to server</div>
+          </div>
+        )}
         <Persons persons={filteredPersons} handleDelete={handleDelete} />
       </div>
     </div>
